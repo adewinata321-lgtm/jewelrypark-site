@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEWELPARK — Katalog Perhiasan Emas &amp; Berlian</title>
+<meta name="description" content="Katalog perhiasan emas dan berlian: gelang, bangle, kalung, cincin, anting dan set. Wholesale jewelry catalog.">
+<style>
+/* ============ RESET & TOKENS ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#B98D38;--gold-hover:#A87D2D;
+  --ink:#192234;--muted:#7D8798;--border:#E4E7EB;
+  --bg:#FFFFFF;--bg-warm:#F8F6F3;--bg-cream:#FAF8F3;--bg-gray:#F9FAFB;
+  --radius:0;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* ============ LAYOUT HELPERS ============ */
+.container{max-width:1480px;margin:0 auto;padding:0 clamp(16px,4vw,72px)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ============ TOP BAR ============ */
+.topbar{background:#fff;border-bottom:1px solid #ECECEC}
+.topbar .container{
+  min-height:44px;display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+}
+.topbar-link{color:var(--gold);display:inline-flex;align-items:center;gap:4px;font-weight:600}
+.topbar-link .arr{transition:transform .2s}
+.topbar-link:hover .arr{transform:translateX(3px)}
+
+/* ============ NAVBAR ============ */
+.navbar{background:#fff;border-bottom:1px solid #EFEFEF;position:sticky;top:0;z-index:50}
+.nav-inner{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  min-height:82px;gap:16px;
+}
+.nav-links{display:flex;gap:clamp(14px,2vw,30px);flex-wrap:wrap}
+.nav-links a{
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-color:var(--gold)}
+.brand{text-align:center;justify-self:center;line-height:1.1}
+.brand .b1{
+  font-size:clamp(20px,2.4vw,30px);font-weight:700;letter-spacing:.28em;
+  color:var(--gold);text-transform:uppercase;
+}
+.brand .b2{font-size:9px;letter-spacing:.5em;color:var(--ink);text-transform:uppercase;margin-top:2px}
+.nav-icons{display:flex;gap:clamp(10px,1.5vw,20px);justify-content:flex-end;align-items:center}
+.icon-btn{
+  width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);border-radius:0;background:#fff;position:relative;
+  transition:border-color .2s,color .2s;
+}
+.icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6}
+.wishlist-count{
+  position:absolute;top:-6px;right:-6px;background:var(--gold);color:#fff;
+  font-size:10px;min-width:16px;height:16px;border-radius:8px;
+  display:none;align-items:center;justify-content:center;padding:0 4px;font-weight:700;
+}
+.wishlist-count.show{display:inline-flex}
+/* hamburger */
+.hamburger{display:none}
+@media(max-width:900px){
+  .nav-links,.nav-icons .hide-m{display:none}
+  .hamburger{display:inline-flex}
+  .nav-inner{grid-template-columns:auto 1fr auto}
+  .brand{text-align:left;justify-self:start}
+}
+
+/* mobile drawer */
+.mobile-drawer{
+  display:none;background:#fff;border-bottom:1px solid var(--border);
+  padding:12px 0 20px;
+}
+.mobile-drawer.open{display:block}
+.mobile-drawer a{
+  display:block;padding:12px clamp(16px,4vw,72px);font-size:13px;
+  letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid #F2F2F2;
+}
+/* search bar */
+.search-row{display:none;padding:14px 0;border-top:1px solid #F2F2F2}
+.search-row.open{display:block}
+.search-row input{
+  width:100%;padding:12px 16px;border:1px solid var(--border);font-size:14px;
+}
+.search-row input:focus{border-color:var(--gold);outline:none}
+
+/* ============ HERO ============ */
+.hero{background:var(--bg-warm);border-bottom:1px solid var(--border)}
+.hero-inner{padding:clamp(40px,7vw,88px) 0;text-align:center}
+.hero h1{
+  font-size:clamp(26px,4vw,48px);font-weight:400;letter-spacing:.08em;text-transform:uppercase;
+}
+.hero h1 .g{color:var(--gold);font-weight:700}
+.hero p{color:var(--muted);margin-top:12px;font-size:clamp(13px,1.4vw,15px);letter-spacing:.06em}
+.hero-stats{
+  margin-top:28px;display:flex;justify-content:center;gap:clamp(20px,5vw,64px);
+  flex-wrap:wrap;
+}
+.hero-stats .st{text-align:center}
+.hero-stats .n{font-size:clamp(20px,2.6vw,30px);font-weight:700;color:var(--gold)}
+.hero-stats .l{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+
+/* ============ FILTER BAR ============ */
+.catalog{padding:clamp(28px,4vw,48px) 0 64px}
+.filter-bar{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+  margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border);
+}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:8px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--border);background:#fff;color:var(--ink);
+  transition:all .2s;
+}
+.chip:hover{border-color:var(--gold);color:var(--gold)}
+.chip.active{background:var(--gold);border-color:var(--gold);color:#fff}
+.chip .cnt{opacity:.65;margin-left:4px;font-size:10px}
+.result-info{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.sort-select{
+  padding:9px 14px;border:1px solid var(--border);background:#fff;font-size:12px;
+  letter-spacing:.06em;color:var(--ink);
+}
+
+/* ============ PRODUCT GRID ============ */
+.grid{
+  display:grid;gap:clamp(14px,2vw,24px);
+  grid-template-columns:repeat(2,1fr);
+}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1024px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1400px){.grid{grid-template-columns:repeat(5,1fr)}}
+.card{
+  background:#fff;border:1px solid var(--border);
+  display:flex;flex-direction:column;position:relative;
+  transition:border-color .25s,box-shadow .25s;
+}
+.card:hover{border-color:var(--gold);box-shadow:0 4px 18px rgba(185,141,56,.10)}
+.card-media{
+  background:var(--bg-gray);aspect-ratio:1/1;overflow:hidden;position:relative;cursor:pointer;
+}
+.card-media img{
+  width:100%;height:100%;object-fit:contain;transition:transform .35s ease;
+}
+.card:hover .card-media img{transform:scale(1.05)}
+.card-badge{
+  position:absolute;top:8px;left:8px;background:var(--ink);color:#fff;
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:4px 8px;
+}
+.card-wish{
+  position:absolute;top:8px;right:8px;width:32px;height:32px;
+  background:rgba(255,255,255,.92);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;color:var(--muted);
+  transition:color .2s,border-color .2s;
+}
+.card-wish:hover{color:var(--gold);border-color:var(--gold)}
+.card-wish.active{color:var(--gold)}
+.card-wish svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
+.card-wish.active svg{fill:var(--gold)}
+.card-body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-cat{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.card-name{
+  font-size:13px;font-weight:600;color:var(--ink);line-height:1.4;
+  cursor:pointer;transition:color .2s;
+}
+.card-name:hover{color:var(--gold)}
+.card-specs{font-size:11px;color:var(--muted);margin-top:auto}
+.card-specs .w{color:var(--gold);font-weight:600}
+
+/* ============ EMPTY / LOAD MORE ============ */
+.empty{
+  text-align:center;padding:80px 20px;color:var(--muted);
+  border:1px dashed var(--border);
+}
+.loadmore-wrap{display:flex;justify-content:center;margin-top:36px}
+.btn-loadmore{
+  padding:14px 44px;background:var(--gold);color:#fff;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;transition:background .2s;
+}
+.btn-loadmore:hover{background:var(--gold-hover)}
+
+/* ============ MODAL (PRODUCT DETAIL) ============ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(25,34,52,.55);z-index:100;
+  display:none;align-items:flex-start;justify-content:center;
+  padding:clamp(10px,3vh,40px);overflow-y:auto;
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:#fff;width:min(1060px,100%);position:relative;
+  animation:slideUp .25s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.modal-close{
+  position:absolute;top:10px;right:10px;width:38px;height:38px;z-index:5;
+  display:flex;align-items:center;justify-content:center;background:#fff;
+  border:1px solid var(--border);color:var(--ink);font-size:18px;
+}
+.modal-close:hover{border-color:var(--gold);color:var(--gold)}
+.modal-grid{display:grid;grid-template-columns:1fr}
+@media(min-width:900px){.modal-grid{grid-template-columns:5fr 7fr}}
+.modal-gallery{background:var(--bg-gray);padding:clamp(16px,3vw,32px)}
+.modal-main-img{
+  width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;
+  border:1px solid var(--border);
+}
+.modal-thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.modal-thumbs img{
+  width:72px;height:72px;object-fit:contain;background:#fff;
+  border:1px solid var(--border);cursor:pointer;padding:4px;
+}
+.modal-thumbs img.active{border-color:var(--gold)}
+.modal-info{padding:clamp(20px,3.5vw,40px)}
+.modal-cat{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.modal-title{
+  font-size:clamp(22px,2.4vw,32px);font-weight:400;margin:8px 0 4px;line-height:1.25;
+}
+.modal-number{font-size:12px;color:var(--muted);letter-spacing:.06em}
+.modal-rule{height:1px;background:var(--border);margin:20px 0}
+.opt-group{margin-bottom:16px}
+.opt-label{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  font-weight:700;margin-bottom:8px;
+}
+.opt-values{font-size:13px;color:var(--muted);line-height:1.7}
+.opt-chip{
+  display:inline-block;padding:6px 14px;margin:0 6px 6px 0;font-size:12px;
+  border:1px solid var(--border);background:#fff;cursor:default;
+}
+.opt-chip.sel{border-color:var(--gold);color:var(--gold);background:#FBF7EE}
+.spec-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px}
+.spec-table caption{
+  text-align:left;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--gold);padding:14px 0 6px;
+}
+.spec-table th{
+  text-align:left;font-weight:600;color:var(--ink);padding:8px 12px 8px 0;
+  border-bottom:1px solid #F0F0F0;width:34%;vertical-align:top;
+}
+.spec-table td{padding:8px 0;border-bottom:1px solid #F0F0F0;color:var(--muted)}
+.modal-actions{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 20px;background:var(--gold);color:#fff;font-size:13px;
+  letter-spacing:.16em;text-transform:uppercase;transition:background .2s;
+}
+.btn-wa:hover{background:var(--gold-hover)}
+.btn-wa svg{width:17px;height:17px;fill:#fff}
+.btn-ghost{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 20px;border:1px solid var(--border);font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink);transition:all .2s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-ghost.active{border-color:var(--gold);color:var(--gold)}
+.btn-ghost svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
+.btn-ghost.active svg{fill:var(--gold)}
+.source-link{
+  display:inline-block;margin-top:14px;font-size:11px;color:var(--muted);
+  letter-spacing:.06em;border-bottom:1px solid var(--border);
+}
+.source-link:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ============ WISHLIST TOAST ============ */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--ink);color:#fff;padding:12px 26px;font-size:13px;
+  letter-spacing:.06em;z-index:200;opacity:0;transition:all .3s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ FOOTER ============ */
+footer{background:var(--bg-cream);border-top:1px solid var(--border);margin-top:40px}
+.footer-grid{
+  display:grid;gap:36px;padding:52px 0 36px;
+  grid-template-columns:1fr;
+}
+@media(min-width:768px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1.6fr}}
+.f-brand .b1{
+  font-size:22px;font-weight:700;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;
+}
+.f-brand .b2{font-size:9px;letter-spacing:.5em;color:var(--ink);text-transform:uppercase;margin:2px 0 10px}
+.f-brand p{font-size:12px;color:var(--muted);max-width:300px}
+.f-head{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  font-weight:700;margin-bottom:14px;
+}
+.f-links a{
+  display:block;font-size:13px;color:var(--ink);padding:5px 0;transition:color .2s;
+}
+.f-links a:hover{color:var(--gold)}
+.f-news input{
+  width:100%;padding:12px 14px;border:1px solid var(--border);background:#fff;font-size:13px;
+}
+.f-news input:focus{border-color:var(--gold);outline:none}
+.f-news .hint{font-size:11px;color:var(--muted);margin-top:8px;min-height:16px}
+.f-news button{
+  margin-top:10px;padding:11px 28px;background:var(--gold);color:#fff;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.f-news button:hover{background:var(--gold-hover)}
+.footer-bottom{
+  border-top:1px solid var(--border);padding:18px 0;text-align:center;
+  font-size:11px;color:var(--muted);letter-spacing:.08em;
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar" id="gold-price">
+  <div class="container">
+    <span>TODAY'S GOLD PRICE</span>
+    <a class="topbar-link" href="#catalog">Lihat Katalog <span class="arr">&rarr;</span></a>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="top" aria-label="Navigasi utama">
+  <div class="container">
+    <div class="nav-inner">
+      <button class="icon-btn hamburger" id="btnMenu" aria-label="Buka menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+      <div class="nav-links" role="list">
+        <a href="#top" class="active">Beranda</a>
+        <a href="#catalog" data-cat="Bracelet">Gelang</a>
+        <a href="#catalog" data-cat="Bangle">Bangle</a>
+        <a href="#catalog" data-cat="Necklace">Kalung</a>
+        <a href="#catalog" data-cat="Ring">Cincin</a>
+        <a href="#catalog" data-cat="Earring">Anting</a>
+        <a href="#catalog" data-cat="SET">Set</a>
+      </div>
+      <a class="brand" href="#top">
+        <div class="b1">Jewelpark</div>
+        <div class="b2">Fine Jewelry</div>
+      </a>
+      <div class="nav-icons">
+        <button class="icon-btn" id="btnSearch" aria-label="Cari produk" aria-expanded="false">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+        </button>
+        <a class="icon-btn hide-m" href="#catalog" aria-label="Katalog">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+        </a>
+        <button class="icon-btn" id="btnWish" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-9.7-9.2C.8 8.6 2.6 5 6.2 5c2.2 0 3.6 1.2 4.4 2.4h2.8C14.2 6.2 15.6 5 17.8 5c3.6 0 5.4 3.6 3.9 6.8C19.5 16.3 12 21 12 21z" stroke-linejoin="round"/></svg>
+          <span class="wishlist-count" id="wishCount">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="search-row" id="searchRow">
+      <input type="search" id="searchInput" placeholder="Cari nama produk, nomor produk, atau kategori… (mis. MC-634, cincin)" aria-label="Cari produk">
+    </div>
+  </div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="#top">Beranda</a>
+    <a href="#catalog" data-cat="Bracelet">Gelang</a>
+    <a href="#catalog" data-cat="Bangle">Bangle</a>
+    <a href="#catalog" data-cat="Necklace">Kalung</a>
+    <a href="#catalog" data-cat="Ring">Cincin</a>
+    <a href="#catalog" data-cat="Earring">Anting</a>
+    <a href="#catalog" data-cat="SET">Set</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container hero-inner">
+    <h1>Koleksi <span class="g">Jewelpark</span></h1>
+    <p>Perhiasan emas &amp; berlian — gelang, bangle, kalung, cincin, anting, dan set.</p>
+    <div class="hero-stats">
+      <div class="st"><div class="n" id="statTotal">0</div><div class="l">Produk</div></div>
+      <div class="st"><div class="n" id="statCats">0</div><div class="l">Kategori</div></div>
+      <div class="st"><div class="n">14K / 18K</div><div class="l">Kemurnian</div></div>
+      <div class="st"><div class="n">6 Warna</div><div class="l">Emas</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ CATALOG ============ -->
+<main class="catalog" id="catalog">
+  <div class="container">
+    <div class="filter-bar">
+      <div class="chips" id="chips" role="tablist" aria-label="Filter kategori"></div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <span class="result-info" id="resultInfo"></span>
+        <select class="sort-select" id="sortSel" aria-label="Urutkan">
+          <option value="default">Terbaru</option>
+          <option value="name">Nama A–Z</option>
+          <option value="cat">Kategori</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="emptyBox" hidden>Tidak ada produk yang cocok dengan pencarian Anda.</div>
+    <div class="loadmore-wrap"><button class="btn-loadmore" id="btnMore">Tampilkan Lebih Banyak</button></div>
+  </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="b1">Jewelpark</div>
+        <div class="b2">Fine Jewelry</div>
+        <p>Katalog perhiasan emas &amp; berlian berkualitas. Gelang, bangle, kalung, cincin, anting, dan set dengan berbagai pilihan kemurnian dan warna emas.</p>
+      </div>
+      <div>
+        <div class="f-head">Kategori</div>
+        <div class="f-links">
+          <a href="#catalog" data-cat="Bracelet">Gelang</a>
+          <a href="#catalog" data-cat="Bangle">Bangle</a>
+          <a href="#catalog" data-cat="Necklace">Kalung</a>
+          <a href="#catalog" data-cat="Ring">Cincin</a>
+          <a href="#catalog" data-cat="Earring">Anting</a>
+          <a href="#catalog" data-cat="SET">Set</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-head">Bantuan</div>
+        <div class="f-links">
+          <a href="#top">Beranda</a>
+          <a href="#catalog">Semua Produk</a>
+          <a href="#footer">Kontak</a>
+        </div>
+      </div>
+      <div class="f-news">
+        <div class="f-head">Dapatkan Inspirasi Terbaru</div>
+        <form id="newsForm">
+          <input type="email" id="newsEmail" placeholder="Masukkan Email Anda" required aria-label="Email newsletter">
+          <div class="hint" id="newsHint" role="status"></div>
+          <button type="submit">Berlangganan</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">© Jewelpark 2026. Demo katalog — semua data produk bersumber dari jewelpark-hk.com.</div>
+  </div>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Detail produk">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Tutup detail produk">&times;</button>
+    <div class="modal-grid">
+      <div class="modal-gallery">
+        <img class="modal-main-img" id="mImg" src="" alt="">
+        <div class="modal-thumbs" id="mThumbs"></div>
+      </div>
+      <div class="modal-info">
+        <div class="modal-cat" id="mCat"></div>
+        <h2 class="modal-title" id="mTitle"></h2>
+        <div class="modal-number" id="mNumber"></div>
+        <div class="modal-rule"></div>
+        <div id="mOptions"></div>
+        <div id="mSpecs"></div>
+        <div class="modal-actions">
+          <a class="btn-wa" id="mWa" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.5-2.6-1.1-4.3-3.7-4.4-3.9-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .4-.3.6-.7.9-.5 1.2.7 1.2 1.6 2 2.8 2.6.3.2.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l1.9.9c.3.2.5.2.6.4 0 .1 0 .6-.3 1.1z"/></svg>
+            Hubungi Kami via WhatsApp
+          </a>
+          <button class="btn-ghost" id="mWishBtn">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-9.7-9.2C.8 8.6 2.6 5 6.2 5c2.2 0 3.6 1.2 4.4 2.4h2.8C14.2 6.2 15.6 5 17.8 5c3.6 0 5.4 3.6 3.9 6.8C19.5 16.3 12 21 12 21z" stroke-linejoin="round"/></svg>
+            <span>Tambah ke Wishlist</span>
+          </button>
+        </div>
+        <a class="source-link" id="mSource" href="#" target="_blank" rel="noopener noreferrer">Lihat produk di jewelpark-hk.com &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ================= DATA ================= */
+let PRODUCTS = [];
+try {
+  fetch('products.json')
+    .then(r => r.json())
+    .then(data => { PRODUCTS = data; init(); })
+    .catch(() => { document.getElementById('grid').innerHTML = '<div class="empty">Gagal memuat products.json</div>'; });
+} catch (e) {
+  document.getElementById('grid').innerHTML = '<div class="empty">Gagal memuat data produk.</div>';
+}
+
+/* ================= STATE ================= */
+const state = {
+  cat: 'ALL',
+  query: '',
+  sort: 'default',
+  visible: 20,
+  wishlist: new Set(),
+};
+const PAGE = 20;
+
+/* ================= HELPERS ================= */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function toast(msg){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tm);
+  t._tm = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ================= INIT ================= */
+function init(){
+  buildChips();
+  updateStats();
+  applyFilters();
+  bindEvents();
+}
+
+function updateStats(){
+  $('statTotal').textContent = PRODUCTS.length;
+  const cats = new Set(PRODUCTS.map(p => p.group).filter(Boolean));
+  $('statCats').textContent = cats.size;
+}
+
+function buildChips(){
+  const groups = [...new Set(PRODUCTS.map(p => p.group).filter(Boolean))].sort();
+  const counts = {};
+  PRODUCTS.forEach(p => { counts[p.group] = (counts[p.group] || 0) + 1; });
+  let html = `<button class="chip active" data-cat="ALL">Semua <span class="cnt">${PRODUCTS.length}</span></button>`;
+  groups.forEach(g => {
+    html += `<button class="chip" data-cat="${esc(g)}">${esc(groupLabel(g))} <span class="cnt">${counts[g]}</span></button>`;
+  });
+  $('chips').innerHTML = html;
+}
+
+function groupLabel(g){
+  return {Bracelet:'Gelang', Bangle:'Bangle', Necklace:'Kalung', Ring:'Cincin', Earring:'Anting', SET:'Set'}[g] || g;
+}
+
+/* ================= FILTER / RENDER ================= */
+function filtered(){
+  let list = PRODUCTS.slice();
+  if (state.cat !== 'ALL') list = list.filter(p => p.group === state.cat);
+  if (state.query) {
+    const q = state.query.toLowerCase();
+    list = list.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.product_number.toLowerCase().includes(q) ||
+      (p.cat_name || '').toLowerCase().includes(q) ||
+      (p.category_path || '').toLowerCase().includes(q)
+    );
+  }
+  if (state.sort === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
+  else if (state.sort === 'cat') list.sort((a,b) => (a.group||'').localeCompare(b.group||'') || a.name.localeCompare(b.name));
+  return list;
+}
+
+function applyFilters(){
+  const list = filtered();
+  renderGrid(list.slice(0, state.visible));
+  $('resultInfo').textContent = `${list.length} produk`;
+  $('btnMore').style.display = list.length > state.visible ? '' : 'none';
+  $('emptyBox').hidden = list.length > 0;
+}
+
+function renderGrid(list){
+  $('grid').innerHTML = list.map(p => {
+    const img = p.images[0] || '';
+    const wished = state.wishlist.has(p.g_code);
+    return `
+    <article class="card" data-code="${esc(p.g_code)}">
+      <div class="card-media" data-open="${esc(p.g_code)}">
+        ${img ? `<img src="${esc(img)}" alt="${esc(p.name)}" loading="lazy">` : ''}
+        <span class="card-badge">${esc(groupLabel(p.group) || p.cat_name)}</span>
+      </div>
+      <button class="card-wish ${wished ? 'active' : ''}" data-wish="${esc(p.g_code)}" aria-label="Tambah ke wishlist">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-9.7-9.2C.8 8.6 2.6 5 6.2 5c2.2 0 3.6 1.2 4.4 2.4h2.8C14.2 6.2 15.6 5 17.8 5c3.6 0 5.4 3.6 3.9 6.8C19.5 16.3 12 21 12 21z" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="card-body">
+        <div class="card-cat">${esc(p.cat_name || '')}</div>
+        <div class="card-name" data-open="${esc(p.g_code)}">${esc(p.name)}</div>
+        <div class="card-specs">${p.weight_18k ? `<span class="w">${esc(p.weight_18k)}</span> · ` : ''}${esc(p.purity.join(' / ') || '14K / 18K')}</div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+/* ================= MODAL ================= */
+function openModal(code){
+  const p = PRODUCTS.find(x => x.g_code === code);
+  if (!p) return;
+  $('mCat').textContent = p.category_path || p.cat_name || '';
+  $('mTitle').textContent = p.name;
+  $('mNumber').textContent = `Product Number: ${p.product_number || p.g_code}${p.weight_18k ? '  ·  Weight(g/18k): ' + p.weight_18k : ''}`;
+
+  // gallery
+  const imgs = p.images.length ? p.images : [''];
+  let idx = 0;
+  const setImg = i => {
+    idx = i;
+    $('mImg').src = imgs[i];
+    $('mImg').alt = p.name + ' — foto ' + (i+1);
+    [...$('mThumbs').children].forEach((t, ti) => t.classList.toggle('active', ti === i));
+  };
+  $('mThumbs').innerHTML = imgs.map((src, i) =>
+    src ? `<img src="${esc(src)}" alt="Thumbnail ${i+1}" data-i="${i}" tabindex="0">` : '').join('');
+  setImg(0);
+  [...$('mThumbs').children].forEach(t => {
+    t.addEventListener('click', () => setImg(+t.dataset.i));
+    t.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setImg(+t.dataset.i); }});
+  });
+
+  // options
+  const optRow = (label, vals, key) => vals.length ? `
+    <div class="opt-group">
+      <div class="opt-label">${esc(label)}</div>
+      <div>${vals.map((v, i) => `<span class="opt-chip ${i===0?'sel':''}" data-opt="${key}">${esc(v)}</span>`).join('')}</div>
+    </div>` : '';
+  $('mOptions').innerHTML =
+    optRow('Purity', p.purity, 'purity') +
+    optRow('Gold Color', p.gold_color, 'gold_color') +
+    optRow('Size', p.size, 'size');
+
+  // specs table
+  $('mSpecs').innerHTML = (p.specs || []).length ? `
+    <div class="modal-rule"></div>
+    <table class="spec-table">
+      ${p.specs.map(sec => `
+        <caption>${esc(sec.section)}</caption>
+        <tr><th>${esc(sec.label)}</th><td>${sec.values.map(esc).join(' / ')}</td></tr>
+      `).join('')}
+    </table>` : '';
+
+  // actions
+  const waText = encodeURIComponent(`Halo, saya tertarik dengan produk ${p.product_number || p.name} (${location.href.split('#')[0]}#${p.g_code})`);
+  $('mWa').href = `https://wa.me/6281119901100?text=${waText}`;
+  $('mSource').href = p.source_url || '#';
+
+  const wb = $('mWishBtn');
+  const refreshWishBtn = () => {
+    const active = state.wishlist.has(p.g_code);
+    wb.classList.toggle('active', active);
+    wb.querySelector('span').textContent = active ? 'Tersimpan di Wishlist' : 'Tambah ke Wishlist';
+  };
+  wb.onclick = () => { toggleWish(p.g_code); refreshWishBtn(); };
+  refreshWishBtn();
+
+  $('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  $('modalClose').focus();
+}
+
+function closeModal(){
+  $('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ================= WISHLIST ================= */
+function toggleWish(code){
+  const had = state.wishlist.has(code);
+  had ? state.wishlist.delete(code) : state.wishlist.add(code);
+  const c = $('wishCount');
+  c.textContent = state.wishlist.size;
+  c.classList.toggle('show', state.wishlist.size > 0);
+  document.querySelectorAll(`[data-wish="${code}"]`).forEach(b => b.classList.toggle('active', !had));
+  toast(had ? 'Dihapus dari wishlist' : 'Ditambahkan ke wishlist');
+  if ($('modalOverlay').classList.contains('open')) {
+    const p = PRODUCTS.find(x => x.g_code === code);
+    if (p) { /* sync card heart behind modal */ }
+  }
+  if (!$('modalOverlay').classList.contains('open')) applyFilters();
+}
+
+/* ================= EVENTS ================= */
+function bindEvents(){
+  // chips
+  $('chips').addEventListener('click', e => {
+    const b = e.target.closest('.chip');
+    if (!b) return;
+    state.cat = b.dataset.cat;
+    state.visible = PAGE;
+    document.querySelectorAll('#chips .chip').forEach(c => c.classList.toggle('active', c === b));
+    applyFilters();
+  });
+
+  // nav / footer category links
+  document.querySelectorAll('[data-cat]').forEach(a => {
+    a.addEventListener('click', () => {
+      const cat = a.dataset.cat;
+      const chip = document.querySelector(`#chips .chip[data-cat="${cat}"]`);
+      if (chip) chip.click();
+    });
+  });
+
+  // open modal (delegated)
+  document.addEventListener('click', e => {
+    const opener = e.target.closest('[data-open]');
+    if (opener) { openModal(opener.dataset.open); return; }
+    const wisher = e.target.closest('[data-wish]');
+    if (wisher) { toggleWish(wisher.dataset.wish); return; }
+  });
+
+  // load more
+  $('btnMore').addEventListener('click', () => {
+    state.visible += PAGE;
+    applyFilters();
+  });
+
+  // sort
+  $('sortSel').addEventListener('change', e => {
+    state.sort = e.target.value;
+    applyFilters();
+  });
+
+  // search
+  $('btnSearch').addEventListener('click', () => {
+    const row = $('searchRow');
+    row.classList.toggle('open');
+    $('btnSearch').setAttribute('aria-expanded', row.classList.contains('open'));
+    if (row.classList.contains('open')) $('searchInput').focus();
+  });
+  $('searchInput').addEventListener('input', e => {
+    state.query = e.target.value.trim();
+    state.visible = PAGE;
+    applyFilters();
+  });
+
+  // mobile menu
+  $('btnMenu').addEventListener('click', () => {
+    const d = $('mobileDrawer');
+    d.classList.toggle('open');
+    $('btnMenu').setAttribute('aria-expanded', d.classList.contains('open'));
+  });
+  $('mobileDrawer').addEventListener('click', e => {
+    if (e.target.tagName === 'A') $('mobileDrawer').classList.remove('open');
+  });
+
+  // modal close
+  $('modalClose').addEventListener('click', closeModal);
+  $('modalOverlay').addEventListener('click', e => { if (e.target === $('modalOverlay')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // wishlist panel
+  $('btnWish').addEventListener('click', () => {
+    if (!state.wishlist.size) { toast('Wishlist masih kosong — klik ikon hati pada produk.'); return; }
+    state.cat = 'ALL'; state.query = ''; $('searchInput').value = '';
+    state.visible = PAGE;
+    // filter to wishlist only via temp override
+    const codes = state.wishlist;
+    const list = PRODUCTS.filter(p => codes.has(p.g_code));
+    renderGrid(list);
+    $('resultInfo').textContent = `${list.length} produk di wishlist`;
+    $('btnMore').style.display = 'none';
+    $('emptyBox').hidden = list.length > 0;
+    document.querySelectorAll('#chips .chip').forEach(c => c.classList.remove('active'));
+    location.hash = '#catalog';
+  });
+
+  // newsletter demo
+  $('newsForm').addEventListener('submit', e => {
+    e.preventDefault();
+    $('newsHint').textContent = 'Terima kasih! (Demo — belum terhubung ke server.)';
+    $('newsForm').reset();
+  });
+}
+</script>
+</body>
+</html>
