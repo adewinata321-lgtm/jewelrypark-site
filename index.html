@@ -273,11 +273,6 @@ input{font:inherit}
 .btn-ghost.active{border-color:var(--gold);color:var(--gold)}
 .btn-ghost svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
 .btn-ghost.active svg{fill:var(--gold)}
-.source-link{
-  display:inline-block;margin-top:14px;font-size:11px;color:var(--muted);
-  letter-spacing:.06em;border-bottom:1px solid var(--border);
-}
-.source-link:hover{color:var(--gold);border-color:var(--gold)}
 
 /* ============ WISHLIST TOAST ============ */
 .toast{
@@ -453,7 +448,7 @@ footer{background:var(--bg-cream);border-top:1px solid var(--border);margin-top:
         </form>
       </div>
     </div>
-    <div class="footer-bottom">© Jewelpark 2026. Demo katalog — semua data produk bersumber dari jewelpark-hk.com.</div>
+    <div class="footer-bottom">© Jewelpark 2026.</div>
   </div>
 </footer>
 
@@ -483,7 +478,6 @@ footer{background:var(--bg-cream);border-top:1px solid var(--border);margin-top:
             <span>Tambah ke Wishlist</span>
           </button>
         </div>
-        <a class="source-link" id="mSource" href="#" target="_blank" rel="noopener noreferrer">Lihat produk di jewelpark-hk.com &rarr;</a>
       </div>
     </div>
   </div>
@@ -651,7 +645,6 @@ function openModal(code){
   // actions
   const waText = encodeURIComponent(`Halo, saya tertarik dengan produk ${p.product_number || p.name} (${location.href.split('#')[0]}#${p.g_code})`);
   $('mWa').href = `https://wa.me/6281119901100?text=${waText}`;
-  $('mSource').href = p.source_url || '#';
 
   const wb = $('mWishBtn');
   const refreshWishBtn = () => {
